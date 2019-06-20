@@ -1,0 +1,5 @@
+ERRORES CUANDO NO COINCIDEN
+Error con la palabra 'amarillo' no coinciden los tipos
+PATTERN:  adjetivo
+WIKTONARY: sustantivo
+

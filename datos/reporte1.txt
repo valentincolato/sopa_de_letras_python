@@ -1,0 +1,4 @@
+ ERRORES CUANDO LA PALABRA NO ES ENCONTRADA 
+ Error con la palabra 'fritas'. No se encuentra en Pattern ni en Wiktionary.
+ Error con la palabra 'fritas'. No se encuentra en Pattern ni en Wiktionary.
+ Error con la palabra 'fritas'. No se encuentra en Pattern ni en Wiktionary.
