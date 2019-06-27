@@ -115,7 +115,6 @@ def ArmarMatriz(palabras,config):
 
     return (matriz_juego,matriz_usuario,matriz_respuestas)
 
-
 def cargarLayout(matriz_juego):
     '''Procedimiento que devuelve la plantilla, a partir de los valores de la Matriz JUEGO'''
     layout = []
