@@ -71,24 +71,25 @@ def ArmarMatriz(palabras,config):
         La matriz DE USUARIO contendra los valores ingresados por el Usuario'''
     max = largoMax(palabras)
 
-    numero_columnas = max + 5
-    numero_filas =   len(palabras)
+
+    numero_columnas = len(palabras)
+    numero_filas = max + 5
 
     #matriz donde va aparecer la sopa de letras
-    matriz_juego =  [[None] * numero_columnas for i in range(numero_filas)]
+    matriz_juego =  [[None] * numero_filas for i in range(numero_columnas)]
     #matriz donde va a  aparecer la entrada del usuario
-    matriz_usuario = [[None] * numero_columnas for i in range(numero_filas)]
+    matriz_usuario = [[None] * numero_filas for i in range(numero_columnas)]
     #matriz donde va a estar las respuestas
-    matriz_respuestas = [[None] * numero_columnas for i in range(numero_filas)]
+    matriz_respuestas = [[None] * numero_filas for i in range(numero_columnas)]
 
-    for x in range(numero_filas):
+    for x in range(numero_columnas):
         palabra, tipo = random.choice(palabras)
         palabras.remove((palabra, tipo))
 
-        pos = random.randint(0, numero_columnas - len(palabra))
+        pos = random.randint(0, numero_filas - len(palabra))
         num = 0
         l = []
-        for y in range(numero_columnas):
+        for y in range(numero_filas):
 
             if (y < pos or y >= (pos + len(palabra))):
                 letra = randomLetra(config['Mayuscula'])
