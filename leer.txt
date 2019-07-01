@@ -1,0 +1,4 @@
+Incluir en el directorio raíz entregado un archivo denominado leer.txt que incluya el
+nombre de los integrantes, la forma de ejecutar cada aplicación y cualquier
+consideración especial para su ejecución (por ejemplo, funciona en sistemas
+Windows o Linux). 
