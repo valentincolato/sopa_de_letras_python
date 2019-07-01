@@ -36,7 +36,6 @@ def main_sopa():
 
     while True:
         event, values = window.Read()
-        print(event)
         if event == 'JUGAR':
 
             if (barraDeProgreso()):
