@@ -79,13 +79,11 @@ def agregarPalabra(palabra):
     #el tipo a agregar por defecto es el de wiki
     tipoAAgregar, definicion = BuscadorWIKI(palabra)
     tipopattern = BuscadorPAT(palabra)
-    print('FRITAAAAAAAAAAS wiki: ', tipoAAgregar)
-    print('FRITAAAAAAAAAAAS pattern: ', tipopattern)
     #si encontro el tipo pero no la definicion le pido que lo ingrese
     if tipoAAgregar != '9999' or tipopattern != '9999' and definicion == '':
 
         while definicion == '':
-            definicion = sg.PopupGetText('Definicion no encontrada por favor ingrese definicion de la palabra ',
+            definicion = sg.PopupGetText('Definicion no encontrada, por favor ingrese definicion de la palabra ',
                                          palabra)
         if definicion == None:
             tipoAAgregar = '9999'
