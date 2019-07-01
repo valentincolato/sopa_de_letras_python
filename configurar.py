@@ -264,7 +264,11 @@ def config_main():
 
             p = values['palabra']
             actualizar_text(window)
-            if p.isalpha() and not(p in d.values()) and p != '':
+            ok = False
+            for dic in list(d.values()):
+                if p in dic:
+                    ok = True
+            if p.isalpha() and not(ok) and p != '':
                 tipo,definicion = agregarPalabra(p)
                 if tipo != '9999':
                     d[tipo][p] = definicion
@@ -276,7 +280,7 @@ def config_main():
 
                     actualizarJSON(d)
             else:
-                sg.Popup('ERROR. Palabra incorrecta. Ingrese otra!')
+                sg.Popup('ERROR. Palabra incorrecta, o ya definida. Ingrese otra!')
         elif event == 'Eliminar':
 
             p = values['palabra']   # Obtiene la palabra a borrar
