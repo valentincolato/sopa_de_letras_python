@@ -1,1 +1,7 @@
 Integrantes: Colato, Valentín. Piñeyro, Daniela.
+Aplicaciones
+  -
+  -
+Guía de ejecución de Aplicaciones
+  -
+Funcionan correctamente en Windows y Linux.
