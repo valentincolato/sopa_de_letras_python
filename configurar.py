@@ -37,12 +37,9 @@ def BuscadorWIKI(palabra):
                 tipo = 'adjetivo'
                 encontro = True
             if encontro == True:
-              #  print(elem.content)
                 definicion = elem.content.split('1')[1].split('.2')[0].split('*')[0]
                 break
-
-        print(' DEFINICION FRITAS: ', definicion)
-
+                
     except AttributeError:
         sg.Popup('Palabra ingresada no encontrada en wiki')
 
@@ -235,7 +232,7 @@ def config_main():
         [sg.Text('Tipografia del Texto'), sg.InputCombo(['Arial','Helvetica', 'Calibri'], size=(40,20),key = 'font2', readonly=True)],
         [sg.Button("Guardar configuracion"  ,button_color=('white', 'green')), sg.Button("Salir" , button_color=('white', 'red')), sg.Button('Reporte 1'), sg.Button('Reporte 2')]]
 
-    window = sg.Window('ejercicio', auto_size_text=True, default_element_size=(40, 1)).Layout(layout)
+    window = sg.Window('Configuracion', auto_size_text=True, default_element_size=(40, 1)).Layout(layout)
 
 
 
