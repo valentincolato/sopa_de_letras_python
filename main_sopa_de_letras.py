@@ -6,13 +6,13 @@ def barraDeProgreso():
     '''Proceso que contiene un loop que normalmente haria algo util, su funcion es estetica'''
     ok = True
     layout = [[sg.Text('Ajustando el juego :)')],
-              [sg.ProgressBar(10000, orientation='h', size=(20, 20), key='progressbar')],
+              [sg.ProgressBar(5000, orientation='h', size=(20, 20), key='progressbar')],
               [sg.Cancel()]]
 
     window = sg.Window('Cargando configuraciones').Layout(layout)
     progress_bar = window.FindElement('progressbar')
 
-    for i in range(10000):
+    for i in range(5000):
         event, values = window.Read(timeout=0)
         if event == 'Cancel' or event is None:
             ok = False
