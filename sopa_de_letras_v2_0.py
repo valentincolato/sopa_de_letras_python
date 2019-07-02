@@ -182,7 +182,6 @@ def termine(matriz_juego,matriz_usuario,matriz_respuestas):
                 color = 'red'
 
             else:
-                print(matriz_respuestas[x][y])
                 if matriz_respuestas[x][y] == 'SUSTANTIVO':
                     color = 'blue'
                 elif matriz_respuestas[x][y] == 'ADJETIVO':
