@@ -4,7 +4,7 @@ Aplicaciones
   -Raspberry
 Guía de ejecución de Aplicaciones
   -En la carpeta "raspberry" se encuentran todos los codigos, y un archivo .json donde se guardaria
-los datos obtenidos por el sensor.
+   los datos obtenidos por el sensor.
   - Nuestro programa consta de 3 archivos principales, uno dedicado a la configuracion,
 otro al juego de sopa de letras, y por ultimo un menu donde se permite seleccionar a cual se desea acceder.
 Funcionan correctamente en Windows y Linux.
