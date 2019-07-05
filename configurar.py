@@ -1,10 +1,9 @@
 import  PySimpleGUI as sg
-import sopa_de_letras_v2_0 as sopa
 from pattern.web import Wiktionary
 from pattern.es import parse
 import os
 import json
-import string
+
 
 def reporte1(palabra):
     '''Genera el Archivo de Reporte cuando la palabra no es encontrada ni en Wikionary, ni Pattern'''
@@ -216,7 +215,7 @@ def config_main():
     config = cargarConfiguraciones()
 
     layout = [
-        [sg.Text("Menu", justification='center', size=(40, 1), font=("Helvetica", 14), text_color='blue')],
+        [sg.Image(filename='img/menu_header.png')],
         [sg.Text('Ingrese palabras para usar en la sopa de letras '),sg.InputText(key='palabra'), sg.Button('Agregar'), sg.Button('Eliminar')],
         [sg.Text('Orientacion del juego'),sg.InputCombo(['Vertical', 'Horizontal'], size=(40,20),key = 'orientacion', readonly=True, default_value=config['Tipo_Orientacion'])],
         [sg.Text('Letras en '),sg.InputCombo(['mayuscula', 'minuscula'] , size=(40,20),key = 'mayus', readonly=True, default_value=config['Mayuscula'])],

@@ -2,9 +2,7 @@ import PySimpleGUI as sg
 import os
 import string
 import random
-import sys
 import json
-from main_sopa_de_letras import main_sopa
 
 def largoMax(palabras):
     '''Funcion encargada de obtener la longitud de la palabra mas larga de las seleccionadas'''
@@ -72,39 +70,47 @@ def ArmarMatriz(palabras,config):
     max = largoMax(palabras)
 
 
-    numero_columnas = len(palabras)
+    numero_columnas = len(palabras) + 3
     numero_filas = max + 5
 
     #matriz donde va aparecer la sopa de letras
-    matriz_juego =  [[None] * numero_filas for i in range(numero_columnas)]
+    matriz_juego =  [ [None] * numero_filas for i in range(numero_columnas)]
     #matriz donde va a  aparecer la entrada del usuario
     matriz_usuario = [[None] * numero_filas for i in range(numero_columnas)]
     #matriz donde va a estar las respuestas
     matriz_respuestas = [[None] * numero_filas for i in range(numero_columnas)]
 
+    #cargo la matriz de juego con letras randoms
     for x in range(numero_columnas):
+        for y in range(numero_filas):
+            matriz_juego[x][y] = randomLetra(config['Mayuscula'])
+
+
+    #cargo la matriz de juego con las palabras a encontrar en la sopa de letras
+
+    vector = [False for i in range(numero_columnas)]
+    for i in range(len(palabras)):
         palabra, tipo = random.choice(palabras)
         palabras.remove((palabra, tipo))
-
         pos = random.randint(0, numero_filas - len(palabra))
+        x = random.randint(0, numero_columnas-1)
+        while (vector[x] != False):
+            x = random.randint(0, numero_columnas-1)
+
+        vector[x] = True
         num = 0
-        l = []
-        for y in range(numero_filas):
+        for y in range(pos, pos+len(palabra)):
 
-            if (y < pos or y >= (pos + len(palabra))):
-                letra = randomLetra(config['Mayuscula'])
-
+            if config['Mayuscula'] == 'mayuscula':
+                letra = palabra[num].upper()
             else:
-                letra = palabra[num]
-                if config['Mayuscula'] == 'mayuscula':
-                    letra = letra.upper()
-                else:
-                    letra = letra.lower()
-                num = num + 1
-                matriz_respuestas[x][y] = tipo
+                letra = palabra[num].lower()
 
-
+            num = num + 1
+            matriz_respuestas[x][y] = tipo
             matriz_juego[x][y] = letra
+
+
 
 
 
@@ -115,6 +121,10 @@ def ArmarMatriz(palabras,config):
         matriz_usuario = rotar_matriz(matriz_usuario)
 
     return (matriz_juego,matriz_usuario,matriz_respuestas)
+
+
+
+
 
 def cargarLayout(matriz_juego):
     '''Procedimiento que devuelve la plantilla, a partir de los valores de la Matriz JUEGO'''
@@ -182,6 +192,7 @@ def termine(matriz_juego,matriz_usuario,matriz_respuestas):
                 color = 'red'
 
             else:
+                print(matriz_respuestas[x][y])
                 if matriz_respuestas[x][y] == 'SUSTANTIVO':
                     color = 'blue'
                 elif matriz_respuestas[x][y] == 'ADJETIVO':
@@ -195,9 +206,9 @@ def termine(matriz_juego,matriz_usuario,matriz_respuestas):
         layout.append(l)
 
 
-    layout.append([sg.Button("Volver a jugar", button_color=('white', 'blue')),sg.Button("SALIR", button_color=('white', 'red'))])
+    layout.append([sg.Button("Volver a jugar"),sg.Button("SALIR", button_color=('white', 'red'))])
 
-    window = sg.Window('Resultado de la sopa de letras', auto_size_text=True, default_element_size=(10, 10)).Layout(layout)
+    window = sg.Window('resultado de la sopa de letras', auto_size_text=True, default_element_size=(10, 10)).Layout(layout)
 
     while True:
         event,value = window.Read()
@@ -223,7 +234,7 @@ def devolverDefiniciones(dicpalabra, palabras):
 def main():
     '''Procedimiento central encargado de generar y mostrar la Sopa de Letras al Usuario, dependiendo de la configuracion de la misma,
     y su correccion. '''
-
+    sg.ChangeLookAndFeel('red')
 
     try:
         dicpalabra = cargarD()
@@ -253,7 +264,7 @@ def main():
             event, values = window.Read()
 
             if event == 'TERMINE':
-                window.Close()
+                window.Hide()
                 termine(matriz_juego,matriz_usuario,matriz_respuestas)
                 break
             elif event == 'SUSTANTIVO':
@@ -266,7 +277,7 @@ def main():
                 tipo = 'VERBO'
 
             elif event == 'SALIR' or event == None:
-                window.Close()
+
                 break
             else:
                 elemento = window.FindElement(event)
@@ -282,7 +293,7 @@ def main():
     except FileNotFoundError:
         sg.PopupError('Error faltan archivos')
 
-
+    window.Close()
 
 
 

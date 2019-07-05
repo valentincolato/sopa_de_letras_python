@@ -1,11 +1,11 @@
 {
     "Cantidad_Verbos": "1",
-    "Cantidad_Adjetivos": "3",
-    "Cantidad_Sustantivos": "3",
-    "Color_ADJETIVO": "#5727B1",
+    "Cantidad_Adjetivos": "0",
+    "Cantidad_Sustantivos": "0",
+    "Color_ADJETIVO": "#24d9d9",
     "Color_VERBO": "#E28769",
     "Color_SUSTANTIVO": "#F15A69",
-    "Ayuda": "Si",
-    "Mayuscula": "minuscula",
+    "Ayuda": "No",
+    "Mayuscula": "mayuscula",
     "Tipo_Orientacion": "Vertical"
 }
