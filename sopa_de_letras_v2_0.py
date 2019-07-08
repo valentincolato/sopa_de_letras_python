@@ -208,7 +208,7 @@ def termine(matriz_juego,matriz_usuario,matriz_respuestas):
 
     layout.append([sg.Button("Volver a jugar"),sg.Button("SALIR", button_color=('white', 'red'))])
 
-    window = sg.Window('resultado de la sopa de letras', auto_size_text=True, default_element_size=(10, 10)).Layout(layout)
+    window = sg.Window('Resultado de la sopa de letras', auto_size_text=True, default_element_size=(10, 10)).Layout(layout)
 
     while True:
         event,value = window.Read()
