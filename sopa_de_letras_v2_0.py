@@ -234,7 +234,6 @@ def devolverDefiniciones(dicpalabra, palabras):
 def main():
     '''Procedimiento central encargado de generar y mostrar la Sopa de Letras al Usuario, dependiendo de la configuracion de la misma,
     y su correccion. '''
-    sg.ChangeLookAndFeel('red')
 
     try:
         dicpalabra = cargarD()
