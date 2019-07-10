@@ -12,7 +12,7 @@ D0  --> pin 15 (BCM22)
 class Sonido:
     
     def __init__(self, canal=22):
-        """Constructor de la clase sonido """
+        """Inicializador de la clase sonido """
         self._canal = canal
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._canal, GPIO.IN)
