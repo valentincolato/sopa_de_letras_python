@@ -30,7 +30,7 @@ def guardar_temp(info , oficina = 'oficina1'):
         #si la oficina no estaba en el diccionario se agrega
         dic_de_temperaturas[oficina] = [info]
 
-    ##guardamos en el archivo la nueva temperatura
+    ##guardamos en el archivo el diccionario actualizado
     with open ("arch/datos-oficina.json", "w") as log_file:
         json.dump(dic_de_temperaturas, log_file, indent=4)
 
