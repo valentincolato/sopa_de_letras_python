@@ -10,7 +10,7 @@ temperatura = Temperatura()
 
 def leer_temp():
     """"Devuelve un diccionario con los datos del sensor, invocando los metodos correspondientes
-     de la clase temperatura y le agrega la fecha actual"""
+     de la clase temperatura y le agrega la fecha actual al diccionario"""
     info_temperatura = temperatura.datos_sensor()
     info_temperatura.update({"fecha": time.asctime(time.localtime(time.time()))})
     return info_temperatura
