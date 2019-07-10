@@ -13,6 +13,7 @@ Resistencia 10K entre VCC y DATA
 class Temperatura:
 
     def __init__(self, pin=17, sensor=Adafruit_DHT.DHT11):
+        """Inicializador de la clase temperatura"""
         # Usamos el DHT11 que es compatible con el DHT12 
         self._sensor = sensor 
         self._data_pin = pin
@@ -23,12 +24,3 @@ class Temperatura:
       return {'temperatura': temperatura, 'humedad': humedad}
      
 
-if __name__ == "__main__":
-    import time
-
-    temp = Temperatura()
-    while True:
-        datos = temp.datos_sensor()
-        # Imprime en la consola las variables temperatura y humedad con un decimal
-        print('Temperatura = {0:0.1f}°C  Humedad = {1:0.1f}%'.format(datos['temperatura'], datos['humedad']))
-        time.sleep(0.5)

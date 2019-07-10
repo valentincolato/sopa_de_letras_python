@@ -12,6 +12,7 @@ D0  --> pin 15 (BCM22)
 class Sonido:
     
     def __init__(self, canal=22):
+        """Constructor de la clase sonido """
         self._canal = canal
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._canal, GPIO.IN)
@@ -20,18 +21,11 @@ class Sonido:
         GPIO.add_event_detect(self._canal, GPIO.RISING)
         
     def evento_detectado(self, funcion):
+        """Proceso que devuelve cuando un sonido es detectado """
+        sonido = False
         if GPIO.event_detected(self._canal):
-            funcion()
+            sonido = True
 
-if __name__ == "__main__":
-    import time
-    def test():
-        print('Sonido detectado!')
-    
+        return sonido
 
-    sonido = Sonido()
-    while True:
-        time.sleep(0.0001)
-        sonido.evento_detectado(test)
 
-    GPIO.cleanup()

@@ -17,12 +17,17 @@ sonido = Sonido()
 temperatura = Temperatura()
 
 def acciones():
-    print ("Sonido Detectado!")
+    """"Obtiene los datos del sensor y lo muestra en la matriz"""
+
+    #obtiene datos del sensor
     temp_data = temperatura.datos_sensor()
+    #la escribe con un formato
     temp_formateada = 'Temperatura = {0:0.1f}°0C  Humedad = {1:0.1f}%'.format(temp_data['temperatura'], temp_data['humedad'])
 
+    #muestra el mensaje en la matriz
     matriz.mostrar_mensaje(temp_formateada, delay=0.08, font=2)
             
 if __name__ == "__main__":
     while True:
-        sonido.evento_detectado(acciones)
+        if(sonido.evento_detectado()):
+            acciones()
