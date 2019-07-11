@@ -4,32 +4,36 @@ import configurar
 import json
 import os
 
-def promedioTemperatura(oficina):
-    '''Funcion encargada de devolver desde un Archivo formato JSON, un Diccionario con las temperaturas registradas.'''
-    tempPromedio = 21
-    if (os.path.exists('datos/datos-oficina.json')):
-        file = open("datos/datos-oficina.json", "r")
+def cambiarLookAndFeel(oficina):
+    '''Metodo  encargado de cambiar el lookAndFeel en caso de existir el archivo, utiliza los datos almacenados del sensor '''
+    if (os.path.exists('raspberry/arch/datos-oficina.json')):
+        file = open('raspberry/arch/datos-oficina.json', "r")
         d = json.load(file)
         file.close()
 
-        temperaturas = d[oficina]
+        try:
+            temperaturas = d[oficina]
+        except KeyError:
+            sg.Popup("El  archivo  de configuracion tiene valores invalidos")
 
-        temp = 0
-        cantTemp = 0
-        for dic in temperaturas:
-            cantTemp = cantTemp + 1
-            temp = temp + dic['temp']
+        else:
+            temp = 0
+            cantTemp = 0
+            for dic in temperaturas:
+                cantTemp = cantTemp + 1
+                temp = temp + dic['temp']
 
-        tempPromedio = temp / cantTemp
 
-    if tempPromedio <= 19:
-        color = 'BluePurple'
-	
-    elif tempPromedio >= 20 and tempPromedio <= 27:
-        color = 'NeutralBlue'
-    else:
-        color = 'SandyBeach'
-    return color
+            tempPromedio = temp / cantTemp
+            if tempPromedio <= 19:
+                color = 'BluePurple'
+
+            elif tempPromedio >= 20 and tempPromedio <= 27:
+                color = 'NeutralBlue'
+            else:
+                color = 'SandyBeach'
+
+            sg.ChangeLookAndFeel(color)
 
 def barraDeProgreso():
     '''Proceso que contiene un loop que normalmente haria algo util, su funcion es estetica'''
@@ -62,12 +66,17 @@ def cargarOficina():
 
     return of
 
+
 def main_sopa():
-    oficina_elegida = cargarOficina()
-    color = promedioTemperatura(oficina_elegida)
-    sg.ChangeLookAndFeel(color)
     '''Centro de Control. Menu principal cuyo propósito es seleccionar la funcion que se desea ejecutar. Entre las cuales se encuentra:
     Ajustar la configuración del juego, Jugar, o terminar la ejecución del programa'''
+
+    oficina_elegida = cargarOficina()
+    print(oficina_elegida)
+
+    # si la oficina fue elegida tendria que tener un valor distinto a None(el cual es el valor por defecto en configuracion.json)
+    if oficina_elegida != None:
+        cambiarLookAndFeel(oficina_elegida)
     layout = [
         [sg.Image(filename='img/header.png')],	
         [sg.Text("\t",justification = "center"), sg.Button("JUGAR"), sg.Button("CONFIGURAR"),
@@ -87,7 +96,6 @@ def main_sopa():
 
         elif event == 'CONFIGURAR':
             configurar.config_main()
-            window.Close()
         elif event == 'SALIR' or event == None:
             sys.exit()
             break
