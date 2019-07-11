@@ -1,4 +1,4 @@
-#! /usr/bin/python
+.#! /usr/bin/python
 # -*- coding: utf-8 -*-
 import os
 import json
@@ -30,14 +30,15 @@ def guardar_temp(info , oficina = 'oficina1'):
         #si la oficina no estaba en el diccionario se agrega
         dic_de_temperaturas[oficina] = [info]
 
-    ##guardamos en el archivo el diccionario actualizado
+    ##guardamos en el archivo la nueva temperatura
     with open ("arch/datos-oficina.json", "w") as log_file:
         json.dump(dic_de_temperaturas, log_file, indent=4)
 
 if __name__ == "__main__":
     while True:
-        time.sleep(60) # Espera 1 min antes de la proxima lectura
+        print('Guardando en json...')
         temp = leer_temp()
         guardar_temp(temp)
+        time.sleep(60)  # Espera 1 min antes de la proxima lectura
 
 

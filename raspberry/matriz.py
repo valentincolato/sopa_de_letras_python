@@ -10,8 +10,12 @@ from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_
 class Matriz:
     def __init__(self, numero_matrices=1, orientacion=0, rotacion=0, ancho=8, alto=8):
         """Inicializador de la clase matriz"""
+
+        #fuentes que se pueden elegir
         self.font = [CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT]
+        #Inicializar la matriz: identificar el puerto
         self.serial = spi(port=0, device=0, gpio=noop())
+        #Crear un objeto matriz
         self.device = max7219(self.serial, width=ancho, height=alto, cascaded=numero_matrices, rotate=rotacion)
     
     def mostrar_mensaje(self, msg, delay=0.1, font=1):
