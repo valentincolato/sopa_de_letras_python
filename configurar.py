@@ -140,7 +140,7 @@ def cargarOficinas():
         d = json.load(file)
         file.close()
     else:
-        d= {None:None}
+        d= {"vacio":None}
         existe = False
 
     return (d,existe)
@@ -156,7 +156,7 @@ def cargarConfiguraciones():
         config = {"Cantidad_Verbos": 0, "Cantidad_Adjetivos": 0,
                   "Cantidad_Sustantivos": 0,
                   "Color_ADJETIVO": '', "Color_VERBO": '',
-                  "Color_SUSTANTIVO": '', "Ayuda": '', "Oficina": None, "Mayuscula": '',
+                  "Color_SUSTANTIVO": '', "Ayuda": '', "Oficina": "vacio", "Mayuscula": '',
                   "Tipo_Orientacion": ''}
     return config
 
