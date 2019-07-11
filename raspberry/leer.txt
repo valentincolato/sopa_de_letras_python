@@ -1,0 +1,12 @@
+-Los archivos principales son:
+     *Registro ambiental
+         -Se  toman los datos del sensor y se guardan , con una periodicidad de 1 minuto, en un archivo denominado 
+           datos-oficinas.json.
+           Con la estructura: 
+           {"oficina1": [{"temp": 33, "humedad": 36, "fecha": "Wed 01 May , 19"} ],
+           "oficina2": [{"temp": 29, "humedad": 36, "fecha": "Wed 01 May , 19"} ]
+            }
+     *Muestra datos:
+          -La  aplicación  deberá  mostrar  la  temperatura  y  humedad  actual  en  dos  matrices  de  led 
+          interconectadas   y  conectadas  a  la  Raspberry.  Los  datos  se  mostrarán cuando 
+          el usuario aplauda o genere algún tipo de ruido cerca del sensor.
