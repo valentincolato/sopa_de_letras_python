@@ -4,19 +4,21 @@ import configurar
 import json
 import os
 
-def promedioTemperatura():
+def promedioTemperatura(oficina):
     '''Funcion encargada de devolver desde un Archivo formato JSON, un Diccionario con las temperaturas registradas.'''
     tempPromedio = 21
     if (os.path.exists('datos/datos-oficina.json')):
         file = open("datos/datos-oficina.json", "r")
         d = json.load(file)
         file.close()
+
+        temperaturas = d[oficina]
+
         temp = 0
         cantTemp = 0
-        for lista in list(d.values()):
-            for dic in lista:
-                cantTemp = cantTemp + 1
-                temp = temp + dic['temp']
+        for dic in temperaturas:
+            cantTemp = cantTemp + 1
+            temp = temp + dic['temp']
 
         tempPromedio = temp / cantTemp
 
@@ -49,8 +51,20 @@ def barraDeProgreso():
     window.Close()
     return ok
 
+def cargarOficina():
+    '''Funcion encargada de devolver desde un Archivo formato JSON, la oficina elegida en la configuración'''
+    of = 'oficina1'
+    if (os.path.exists('datos/configuracion.json')):
+        file = open("datos/configuracion.json", "r")
+        config = json.load(file)
+        file.close()
+        of = config['Oficina']
+
+    return of
+
 def main_sopa():
-    color = promedioTemperatura()
+    oficina_elegida = cargarOficina()
+    color = promedioTemperatura(oficina_elegida)
     sg.ChangeLookAndFeel(color)
     '''Centro de Control. Menu principal cuyo propósito es seleccionar la funcion que se desea ejecutar. Entre las cuales se encuentra:
     Ajustar la configuración del juego, Jugar, o terminar la ejecución del programa'''
@@ -73,6 +87,7 @@ def main_sopa():
 
         elif event == 'CONFIGURAR':
             configurar.config_main()
+            window.Close()
         elif event == 'SALIR' or event == None:
             sys.exit()
             break
