@@ -72,10 +72,9 @@ def main_sopa():
     Ajustar la configuración del juego, Jugar, o terminar la ejecución del programa'''
 
     oficina_elegida = cargarOficina()
-    print(oficina_elegida)
 
     # si la oficina fue elegida tendria que tener un valor distinto a None(el cual es el valor por defecto en configuracion.json)
-    if oficina_elegida != None:
+    if oficina_elegida != "vacio":
         cambiarLookAndFeel(oficina_elegida)
 
     try:
