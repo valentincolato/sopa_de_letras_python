@@ -1,12 +1,12 @@
 {
-    "Cantidad_Verbos": "1",
-    "Cantidad_Adjetivos": "0",
-    "Cantidad_Sustantivos": "0",
+    "Cantidad_Verbos": "3",
+    "Cantidad_Adjetivos": "1",
+    "Cantidad_Sustantivos": "1",
     "Color_ADJETIVO": "#5727B1",
     "Color_VERBO": "#E28769",
     "Color_SUSTANTIVO": "#F15A69",
-    "Ayuda": "Si",
-    "Oficina": "oficina2",
+    "Ayuda": "No",
+    "Oficina": "oficina1",
     "Mayuscula": "mayuscula",
     "Tipo_Orientacion": "Vertical"
 }
