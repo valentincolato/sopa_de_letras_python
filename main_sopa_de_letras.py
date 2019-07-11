@@ -77,28 +77,30 @@ def main_sopa():
     # si la oficina fue elegida tendria que tener un valor distinto a None(el cual es el valor por defecto en configuracion.json)
     if oficina_elegida != None:
         cambiarLookAndFeel(oficina_elegida)
-    layout = [
-        [sg.Image(filename='img/header.png')],	
-        [sg.Text("\t",justification = "center"), sg.Button("JUGAR"), sg.Button("CONFIGURAR"),
-         sg.Button("SALIR", button_color=('white', 'red'))]
+
+    try:
+        layout = [
+            [sg.Image(filename='img/header.png')],
+            [sg.Text("\t",justification = "center"), sg.Button("JUGAR"), sg.Button("CONFIGURAR"),
+             sg.Button("SALIR", button_color=('white', 'red'))]
+        ]
+        window = sg.Window('Sopa de Letras', auto_size_text=True, default_element_size=(20, 1)).Layout(layout)
+
+        while True:
+            event, values = window.Read()
+            if event == 'JUGAR':
+
+                if (barraDeProgreso()):
+                    sopa_de_letras_v2_0.main()
 
 
-    ]
-    window = sg.Window('Sopa de Letras', auto_size_text=True, default_element_size=(20, 1)).Layout(layout)
-
-    while True:
-        event, values = window.Read()
-        if event == 'JUGAR':
-
-            if (barraDeProgreso()):
-                sopa_de_letras_v2_0.main()
-
-
-        elif event == 'CONFIGURAR':
-            configurar.config_main()
-        elif event == 'SALIR' or event == None:
-            sys.exit()
-            break
+            elif event == 'CONFIGURAR':
+                configurar.config_main()
+            elif event == 'SALIR' or event == None:
+                sys.exit()
+                break
+    except FileNotFoundError:
+        sg.PopupError("Error faltan archivos")
 
 
 

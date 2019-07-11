@@ -208,7 +208,7 @@ def termine(matriz_juego,matriz_usuario,matriz_respuestas):
 
     layout.append([sg.Button("Volver a jugar"),sg.Button("SALIR", button_color=('white', 'red'))])
 
-    window = sg.Window('Resultado de la sopa de letras', auto_size_text=True, default_element_size=(10, 10)).Layout(layout)
+    window = sg.Window('resultado de la sopa de letras', auto_size_text=True, default_element_size=(10, 10)).Layout(layout)
 
     while True:
         event,value = window.Read()
@@ -234,65 +234,64 @@ def devolverDefiniciones(dicpalabra, palabras):
 def main():
     '''Procedimiento central encargado de generar y mostrar la Sopa de Letras al Usuario, dependiendo de la configuracion de la misma,
     y su correccion. '''
-
-    try:
-        dicpalabra = cargarD()
-        config = cargarConfiguraciones()
-        palabras = armarPalabras(dicpalabra,config)
-        matriz_juego,matriz_usuario,matriz_respuestas = ArmarMatriz(palabras.copy(),config)
-        layout = cargarLayout(matriz_juego)
-        layout.append([sg.Button("SUSTANTIVO", button_color=('white', config["Color_SUSTANTIVO"])),
-                       sg.Button("VERBO", button_color=('white', config["Color_VERBO"])),
-                       sg.Button("ADJETIVO", button_color=('white', config['Color_ADJETIVO']))])
+    sg.ChangeLookAndFeel('red')
 
 
-        if config['Ayuda'] == 'Si':
-            listadef = devolverDefiniciones(dicpalabra,palabras)
-            layout.append([sg.Text('Ayuda', justification='left'), sg.Listbox(values=listadef, size=(70, 5), auto_size_text= True)])
+    dicpalabra = cargarD()
+    config = cargarConfiguraciones()
+    palabras = armarPalabras(dicpalabra,config)
+    matriz_juego,matriz_usuario,matriz_respuestas = ArmarMatriz(palabras.copy(),config)
+    layout = cargarLayout(matriz_juego)
+    layout.append([sg.Button("SUSTANTIVO", button_color=('white', config["Color_SUSTANTIVO"])),
+                   sg.Button("VERBO", button_color=('white', config["Color_VERBO"])),
+                   sg.Button("ADJETIVO", button_color=('white', config['Color_ADJETIVO']))])
+
+
+    if config['Ayuda'] == 'Si':
+        listadef = devolverDefiniciones(dicpalabra,palabras)
+        layout.append([sg.Text('Ayuda', justification='left'), sg.Listbox(values=listadef, size=(70, 5), auto_size_text= True)])
+    else:
+        layout.append([sg.Text('Cantidad de sustantivos ' + str(config['Cantidad_Sustantivos'])),
+                      sg.Text('Cantidad de verbos ' + str(config['Cantidad_Verbos'])),
+                      sg.Text('Cantidad de adjetivos ' + str(config['Cantidad_Adjetivos']))])
+    layout.append(
+        [sg.Button("TERMINE", button_color=('white', 'green')), sg.Button("SALIR", button_color=('white', 'red'))])
+
+    window = sg.Window('sopa de letras', auto_size_text=True, default_element_size=(20, 1)).Layout(layout)
+    #valor de tipo por default
+    tipo = 'SUSTANTIVO'
+    while True:
+        event, values = window.Read()
+
+        if event == 'TERMINE':
+            window.Hide()
+            termine(matriz_juego,matriz_usuario,matriz_respuestas)
+            window.Close()
+            break
+        elif event == 'SUSTANTIVO':
+            tipo = 'SUSTANTIVO'
+
+        elif event == 'ADJETIVO':
+            tipo = 'ADJETIVO'
+
+        elif event == 'VERBO':
+            tipo = 'VERBO'
+
+        elif event == 'SALIR' or event == None:
+            window.Close()
+            break
         else:
-            layout.append([sg.Text('Cantidad de sustantivos ' + str(config['Cantidad_Sustantivos'])),
-                          sg.Text('Cantidad de verbos ' + str(config['Cantidad_Verbos'])),
-                          sg.Text('Cantidad de adjetivos ' + str(config['Cantidad_Adjetivos']))])
-        layout.append(
-            [sg.Button("TERMINE", button_color=('white', 'green')), sg.Button("SALIR", button_color=('white', 'red'))])
+            elemento = window.FindElement(event)
 
-        window = sg.Window('sopa de letras', auto_size_text=True, default_element_size=(20, 1)).Layout(layout)
-        #valor de tipo por default
-        tipo = 'SUSTANTIVO'
-        while True:
-            event, values = window.Read()
-
-            if event == 'TERMINE':
-                window.Hide()
-                termine(matriz_juego,matriz_usuario,matriz_respuestas)
-                break
-            elif event == 'SUSTANTIVO':
-                tipo = 'SUSTANTIVO'
-
-            elif event == 'ADJETIVO':
-                tipo = 'ADJETIVO'
-
-            elif event == 'VERBO':
-                tipo = 'VERBO'
-
-            elif event == 'SALIR' or event == None:
-
-                break
+            # si la matriz del usuario en esa posicion es None significa que nunca fue seleccionada
+            if(matriz_usuario[event[0]][event[1]] == None):
+                matriz_usuario[event[0]][event[1]] = tipo
+                elemento.Update(background_color=config['Color_'+ tipo])
             else:
-                elemento = window.FindElement(event)
+                matriz_usuario[event[0]][event[1]]  = None
+                elemento.Update(background_color='white')
 
-                # si la matriz del usuario en esa posicion es None significa que nunca fue seleccionada
-                if(matriz_usuario[event[0]][event[1]] == None):
-                    matriz_usuario[event[0]][event[1]] = tipo
-                    elemento.Update(background_color=config['Color_'+ tipo])
-                else:
-                    matriz_usuario[event[0]][event[1]]  = None
-                    elemento.Update(background_color='white')
 
-    except FileNotFoundError:
-        sg.PopupError('Error faltan archivos')
-
-    window.Close()
 
 
 
@@ -301,4 +300,3 @@ def main():
 if __name__ == '__main__':
     import sys
     sys.exit(main())
- 
