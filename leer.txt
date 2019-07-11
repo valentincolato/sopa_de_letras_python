@@ -15,8 +15,8 @@ Guía de ejecución de Aplicaciones
            "oficina2": [{"temp": 29, "humedad": 36, "fecha": "Wed 01 May , 19"} ]
             }
        .Muestra datos:
-          -La  aplicación  deberá  mostrar  la  temperatura  y  humedad  actual  en  dos  matrices  de  led 
-          interconectadas   y  conectadas  a  la  Raspberry.  Los  datos  se  mostrarán cuando 
+          -La  aplicación    muestra  la  temperatura  y  humedad  actual  en  dos  matrices  de  led 
+          interconectadas   y  conectadas  a  la  Raspberry.  Los  datos  se  muestran cuando 
           el usuario aplauda o genere algún tipo de ruido cerca del sensor.
    
    *Sopa de letras:
