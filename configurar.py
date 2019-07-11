@@ -3,6 +3,8 @@ from pattern.web import Wiktionary
 from pattern.es import parse
 import os
 import json
+import time
+from main_sopa_de_letras import main_sopa
 
 
 def reporte1(palabra):
@@ -129,6 +131,19 @@ def cargarD():
 
     return d
 
+def cargarOficinas():
+    '''Funcion encargada de devolver desde un Archivo formato JSON, un Diccionario con las temperaturas de las oficinas
+        En caso de no existir dicho archivo, se inicializará oficina por defecto'''
+    if (os.path.exists('datos/datos-oficina.json')):
+        file = open("datos/datos-oficina.json", "r")
+        d = json.load(file)
+        file.close()
+    else:
+        d = {'oficina1': [{"temp": 15, "humedad": 36, "fecha": time.asctime(time.localtime(time.time()))}]}
+
+    return d
+
+
 def cargarConfiguraciones():
     '''Funcion encargada de devolver desde un Archivo formato JSON, un Diccionario con las configuraciones a utilizar en la Sopa De Letras'''
     if (os.path.exists('datos/configuracion.json')):
@@ -139,7 +154,7 @@ def cargarConfiguraciones():
         config = {"Cantidad_Verbos": 0, "Cantidad_Adjetivos": 0,
                   "Cantidad_Sustantivos": 0,
                   "Color_ADJETIVO": '', "Color_VERBO": '',
-                  "Color_SUSTANTIVO": '', "Ayuda": '', "Mayuscula": '',
+                  "Color_SUSTANTIVO": '', "Ayuda": '', "Oficina": 'oficina1', "Mayuscula": '',
                   "Tipo_Orientacion": ''}
     return config
 
@@ -168,7 +183,7 @@ def cargarConfig(values):
         config = {"Cantidad_Verbos": values['cantverb'], "Cantidad_Adjetivos": values['cantad'],
                       "Cantidad_Sustantivos": values['cantsus'],
                       "Color_ADJETIVO": values['colorAd'], "Color_VERBO": values['colorVerb'],
-                      "Color_SUSTANTIVO": values['colorSus'], "Ayuda": values['ayuda'], "Mayuscula": values['mayus'],
+                      "Color_SUSTANTIVO": values['colorSus'], "Ayuda": values['ayuda'], "Oficina": values['office'], "Mayuscula": values['mayus'],
                       "Tipo_Orientacion": values['orientacion'] }
         file = open("datos/configuracion.json", "w")
         json.dump(config, file, indent=4)
@@ -214,6 +229,8 @@ def config_main():
 
     config = cargarConfiguraciones()
 
+    ofi = cargarOficinas()
+
     layout = [
         [sg.Image(filename='img/menu_header.png')],
         [sg.Text('Ingrese palabras para usar en la sopa de letras '),sg.InputText(key='palabra'), sg.Button('Agregar'), sg.Button('Eliminar')],
@@ -226,6 +243,7 @@ def config_main():
         [sg.Text('Adjetivos:    ', justification='center'), sg.InputCombo(list(range(len(list(d['adjetivo'].keys()))+1)), key= 'cantad', size=(5,5), readonly=True, default_value=int(config['Cantidad_Adjetivos'])),sg.Button(key ='colorAd',button_text='color',button_type=sg.BUTTON_TYPE_COLOR_CHOOSER)],
         [sg.Text('Verbo:         ', justification='center'), sg.InputCombo(list(range(len(list(d['verbo'].keys())) + 1)), key= 'cantverb', size=(5,5), readonly=True, default_value=int(config['Cantidad_Verbos'])),sg.Button(key ='colorVerb',button_text='color',button_type=sg.BUTTON_TYPE_COLOR_CHOOSER)],
         [sg.Text('Ayuda', justification='center'), sg.InputCombo(['Si','No'], key= 'ayuda', size=(5,5), readonly=True, default_value=config['Ayuda'])],
+        [sg.Text('Seleccione Oficina', justification='center'), sg.InputCombo(list(ofi.keys()), key='office', size=(5, 5), readonly=True, default_value=config['Oficina'])],
         [sg.Text('Seleccione Tipografia ',size=(40, 1), font=("Helvetica", 13), justification='center')],
         [sg.Text('Tipografia del Título'), sg.InputCombo(['Arial','Helvetica', 'Calibri'], size=(40,20),key = 'font1', readonly=True)],
         [sg.Text('Tipografia del Texto'), sg.InputCombo(['Arial','Helvetica', 'Calibri'], size=(40,20),key = 'font2', readonly=True)],
@@ -249,9 +267,9 @@ def config_main():
             if opcion == 'Yes':
                ok = cargarConfig(values)
                if (ok):
-
                     window.Close()
                     break
+
 
 
         elif event =='Agregar':
@@ -289,6 +307,9 @@ def config_main():
                 listbox.Update(
                     ['   Sustantivos: '] + list(d['sustantivo'].keys()) + ['  Adjetivos: '] + list(d['adjetivo'].keys()) + [
                         '  Verbos: '] + list(d['verbo'].keys()))
+                sus.Update(values=list(range(len(list(d['sustantivo'].keys())) + 1)))
+                adj.Update(values=list(range(len(list(d['adjetivo'].keys())) + 1)))
+                verb.Update(values=list(range(len(list(d['verbo'].keys())) + 1)))
         elif event == 'Reporte 1':
             window.Hide()
             mostrarReporte('datos/reporte.txt', values['font1'], values['font2'])
@@ -300,7 +321,7 @@ def config_main():
         elif event == 'Salir' or event == None:
             window.Close()
             break
-
+    main_sopa()
 
 if __name__ == '__main__':
     import sys
