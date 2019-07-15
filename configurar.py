@@ -140,7 +140,7 @@ def cargarOficinas():
         d = json.load(file)
         file.close()
     else:
-        d= {"vacio":None}
+        d= {"":None}
         existe = False
 
     return (d,existe)
