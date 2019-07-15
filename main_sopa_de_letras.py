@@ -57,7 +57,7 @@ def barraDeProgreso():
 
 def cargarOficina():
     '''Funcion encargada de devolver desde un Archivo formato JSON, la oficina elegida en la configuración'''
-    of = 'vacio'
+    of = ''
     if (os.path.exists('datos/configuracion.json')):
         file = open("datos/configuracion.json", "r")
         config = json.load(file)
@@ -74,7 +74,7 @@ def main_sopa():
     oficina_elegida = cargarOficina()
 
     # si la oficina fue elegida tendria que tener un valor distinto a None(el cual es el valor por defecto en configuracion.json)
-    if oficina_elegida != "vacio":
+    if oficina_elegida != "":
         cambiarLookAndFeel(oficina_elegida)
 
     try:
