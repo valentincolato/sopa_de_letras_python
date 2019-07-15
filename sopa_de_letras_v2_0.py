@@ -1,3 +1,9 @@
+#################################################################
+# Author: Colato Valentin, Piñeyro Daniela                          
+# License: Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+# License URL: https://creativecommons.org/licenses/by-sa/4.0/
+#################################################################
+
 import PySimpleGUI as sg
 import os
 import string
