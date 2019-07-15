@@ -57,7 +57,7 @@ def barraDeProgreso():
 
 def cargarOficina():
     '''Funcion encargada de devolver desde un Archivo formato JSON, la oficina elegida en la configuración'''
-    of = 'oficina1'
+    of = 'vacio'
     if (os.path.exists('datos/configuracion.json')):
         file = open("datos/configuracion.json", "r")
         config = json.load(file)
