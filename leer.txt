@@ -1,25 +1,26 @@
-Integrantes: Colato, Valentín. Piñeyro, Daniela.
+Integrantes: Colato Valentín, Piñeyro, Daniela.
 Aplicaciones
-  -Juego de sopa de letras
+  -Juego de Sopa de Letras
   -Raspberry
 Guía de ejecución de Aplicaciones
   *Raspberry:
-     -En la carpeta "raspberry" se encuentran todos los codigos, y un archivo .json donde se guardaria
-     los datos obtenidos por el sensor.
-     -Ademas contendra algunas archivos principales :
+     -En la carpeta "raspberry" se encuentran todos los codigos, y un archivo .json donde se almacenan
+     los datos obtenidos por el sensor (temperatura y humedad de las Oficinas).
+     -Además contendra algunos archivos principales:
        .Registro ambiental
-         -Se  toman los datos del sensor y se guardan , con una periodicidad de 1 minuto, en un archivo denominado 
+         -Se  toman los datos del sensor y se guardan con una periodicidad de 1 minuto, en un archivo denominado 
            datos-oficinas.json.
            Con la estructura: 
            {"oficina1": [{"temp": 33, "humedad": 36, "fecha": "Wed 01 May , 19"} ],
            "oficina2": [{"temp": 29, "humedad": 36, "fecha": "Wed 01 May , 19"} ]
             }
        .Muestra datos:
-          -La  aplicación    muestra  la  temperatura  y  humedad  actual  en  dos  matrices  de  led 
+          -La  aplicación muestra  la  temperatura  y  humedad  actual  en  dos  matrices  de  led 
           interconectadas   y  conectadas  a  la  Raspberry.  Los  datos  se  muestran cuando 
           el usuario aplauda o genere algún tipo de ruido cerca del sensor.
    
    *Sopa de letras:
           -Nuestro programa consta de 3 archivos principales, uno dedicado a la configuracion,
           otro al juego de sopa de letras, y por ultimo un menu donde se permite seleccionar a cual se desea acceder.
+          
 Funcionan correctamente en Windows y Linux.
