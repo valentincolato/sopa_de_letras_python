@@ -162,7 +162,7 @@ def cargarConfiguraciones():
         config = {"Cantidad_Verbos": 0, "Cantidad_Adjetivos": 0,
                   "Cantidad_Sustantivos": 0,
                   "Color_ADJETIVO": '', "Color_VERBO": '',
-                  "Color_SUSTANTIVO": '', "Ayuda": '', "Oficina": "vacio", "Mayuscula": '',
+                  "Color_SUSTANTIVO": '', "Ayuda": '', "Oficina": "", "Mayuscula": '',
                   "Tipo_Orientacion": ''}
     return config
 
